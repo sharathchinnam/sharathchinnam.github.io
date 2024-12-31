@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="google-site-verification" content="rSFGlfm_y46yhcuMKPOhTSCyFeDqoOR5PGOYJ7t0Vy4" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Add this CSS code to apply background image */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-image: url('background.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #login-section {
+            width: 100%;
+            max-width: 400px;
+            background: rgba(0, 0, 0, 0.6); /* Transparent background */
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-box {
+            margin: 0 auto;
+        }
+
+        .login-box h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .textbox {
+            margin-bottom: 20px;
+        }
+
+        .textbox input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            margin-top: 10px;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        header {
+            background-color: #4CAF50;
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .feature {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .job-page {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .job-page button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .job-page button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Section -->
+    <div id="login-section">
+        <div class="login-box">
+            <h2>Login</h2>
+            <form action="#" method="POST" onsubmit="loginUser(event)">
+                <div class="textbox">
+                    <input type="text" placeholder="Username" name="username" id="username" required>
+                </div>
+                <div class="textbox">
+                    <input type="password" placeholder="Password" name="password" id="password" required>
+                </div>
+                <input type="submit" value="Login" class="btn">
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content Section (hidden initially) -->
+    <div id="main-content" style="display: none;">
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="javascript:void(0)" onclick="showSection('schedule')">Home</a></li>
+                    <li><a href="javascript:void(0)" onclick="showSection('journey')">My Journey</a></li>
+                    <li><a href="javascript:void(0)" onclick="showSection('question-bank')">Question Bank</a></li>
+                    <li><a href="javascript:void(0)" onclick="showSection('jobs-board')">Jobs Board</a></li>
+                    <li><a href="javascript:void(0)" onclick="logoutUser()">Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <div id="schedule" class="feature" style="display: none;">
+            <h2>Schedule</h2>
+            <p>Your schedule will be displayed here.</p>
+        </div>
+
+        <div id="journey" class="feature" style="display: none;">
+            <h2>My Journey</h2>
+            <p>Your growth cycle will be displayed here.</p>
+        </div>
+
+        <div id="question-bank" class="feature" style="display: none;">
+            <h2>Question Bank</h2>
+            <p>Coding problem sets will be displayed here.</p>
+        </div>
+
+        <div id="jobs-board" class="feature" style="display: none;">
+            <h2>Jobs Board</h2>
+            <div>
+                <button onclick="showJobPage('open-to-apply')">Open to Apply</button>
+                <button onclick="showJobPage('applied')">Applied</button>
+                <button onclick="showJobPage('hiring-done')">Hiring Done</button>
+            </div>
+
+            <div id="open-to-apply" class="job-page" style="display: none;">
+                <h3>Open to Apply</h3>
+                <p>Job openings available for you to apply.</p>
+            </div>
+            <div id="applied" class="job-page" style="display: none;">
+                <h3>Applied Jobs</h3>
+                <p>Jobs you have applied to.</p>
+            </div>
+            <div id="hiring-done" class="job-page" style="display: none;">
+                <h3>Hiring Done</h3>
+                <p>Jobs where the hiring process is completed.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to handle user login
+        function loginUser(event) {
+            event.preventDefault();
+            // Hide login section and show the main content
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            showSection('schedule');
+        }
+
+        // Function to show specific sections (schedule, journey, etc.)
+        function showSection(sectionId) {
+            // Hide all sections first
+            const sections = document.querySelectorAll('.feature');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Show the selected section
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        // Function to handle job page display
+        function showJobPage(pageId) {
+            const jobPages = document.querySelectorAll('.job-page');
+            jobPages.forEach(page => {
+                page.style.display = 'none';
+            });
+            document.getElementById(pageId).style.display = 'block';
+        }
+
+        // Function to handle user logout
+        function logoutUser() {
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('login-section').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
